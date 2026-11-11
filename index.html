@@ -39,26 +39,38 @@ button { font: inherit; cursor: pointer; }
   margin: 0 auto;
   background: var(--paper);
   position: relative;
-  padding-bottom: 100px;
+  padding-top: 100px;
+  /* padding-bottom: 100px; */
 }
 
 /* ヘッダー */
 .header {
+  position: fixed;
+  top: 0;
+  width: 402px;
+  z-index: 100;
   height: 93px;
   background: var(--blue);
   border-bottom: 1px solid #aabfc0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 10px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  /* gap: 12px; */
 }
 
+.brand img {
+  width: 238px;
+  height: auto;
+  display: block;
+}
+
+/*
 .brand-mark {
   font-size: 30px;
   color: #586e68;
@@ -78,6 +90,7 @@ button { font: inherit; cursor: pointer; }
   color: #53645e;
   margin-top: -2px;
 }
+*/
 
 .menu-button {
   border: 0;
@@ -162,18 +175,20 @@ h2 {
 }
 
 .course-image {
-  width: 64px;
-  height: 64px;
-  border-radius: 8px;
+  width: 60px;
+  height: 60px;
+  /*border-radius: 8px;
   flex-shrink: 0;
   display: grid;
   place-items: center;
   font-size: 35px;
-  background: #d8e5d9;
+  background: #d8e5d9;*/
 }
 
+/*
 .course-card:nth-child(2) .course-image { background: #c6d9ca; }
 .course-card:nth-child(3) .course-image { background: #b9d7d6; }
+*/
 
 .course-info { flex: 1; min-width: 0; }
 
@@ -582,6 +597,7 @@ h2 {
   box-shadow: var(--shadow);
 }
 
+/*
 .home-indicator {
   width: 120px;
   height: 5px;
@@ -589,6 +605,7 @@ h2 {
   background: #000;
   margin: 22px auto 0;
 }
+*/
 
 .screen { display: none; }
 .screen.active { display: block; }
@@ -606,14 +623,17 @@ h2 {
 
   <header class="header">
     <div class="brand">
+      <img src="img/title.png" alt="Wild Cat House">
+      <!--
       <span class="brand-mark">❧</span>
       <div>
         <div class="brand-name">Wild Cat House</div>
         <div class="brand-sub">Relaxation salon</div>
       </div>
       <span class="brand-mark">♧</span>
+      -->
     </div>
-    <button class="menu-button" aria-label="メニュー">☰</button>
+    <button class="menu-button" aria-label="メニュー"><img src="img/menu.png" alt="☰"></button>
   </header>
 
   <nav class="progress" id="progress">
@@ -633,7 +653,7 @@ h2 {
       <div class="course-list">
         <button class="course-card selected" data-course="深林アロマコース"
           data-price="9900" data-duration="90分">
-          <div class="course-image">🐈</div>
+          <div class="course-image"><img src="img/course_aloma.png" alt="深林アロマコース"></div>
           <div class="course-info">
             <div class="course-name">深林アロマコース</div>
             <div class="course-detail">植物由来のアロマで心身ともにリラックス</div>
@@ -644,7 +664,7 @@ h2 {
 
         <button class="course-card" data-course="森のボディケア"
           data-price="6600" data-duration="60分">
-          <div class="course-image">🐈‍⬛</div>
+          <div class="course-image"><img src="img/course_body.png" alt="森のボディケア"></div>
           <div class="course-info">
             <div class="course-name">森のボディケア</div>
             <div class="course-detail">全身をゆっくりほぐす定番コース</div>
@@ -655,7 +675,7 @@ h2 {
 
         <button class="course-card" data-course="足もみ散歩コース"
           data-price="4400" data-duration="30分">
-          <div class="course-image">🐱</div>
+          <div class="course-image"><img src="img/course_foot.png" alt="足もみ散歩コース"></div>
           <div class="course-info">
             <div class="course-name">足もみ散歩コース</div>
             <div class="course-detail">足元から疲れを整えます</div>
@@ -822,7 +842,9 @@ h2 {
       <button class="footer-button" id="back-button" hidden>戻る</button>
       <button class="footer-button primary" id="next-button">スタッフ選択</button>
     </div>
+    <!--
     <div class="home-indicator"></div>
+    -->
   </footer>
 
 </div>
