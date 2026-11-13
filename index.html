@@ -7,6 +7,7 @@
 <title>Wild Cat House</title>
 <style>
 :root {
+  --app-width: 440px;
   --green: #345b45;
   --green-light: #527b65;
   --blue: #c7dfe1;
@@ -34,20 +35,23 @@ button { font: inherit; cursor: pointer; }
 
 .app {
   width: 100%;
-  max-width: 402px;
+  max-width: var(--app-width);
   min-height: 100vh;
   margin: 0 auto;
   background: var(--paper);
   position: relative;
-  padding-top: 100px;
-  /* padding-bottom: 100px; */
+  padding-top: 93px;
+  padding-bottom: 100px;
 }
 
 /* ヘッダー */
 .header {
   position: fixed;
   top: 0;
-  width: 402px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--app-width);
   z-index: 100;
   height: 93px;
   background: var(--blue);
@@ -133,6 +137,8 @@ h2 {
   font-size: 15px;
   margin: 0 0 12px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 .description {
@@ -142,8 +148,9 @@ h2 {
 }
 
 .check {
-  font-size: 12px;
-  margin-left: 5px;
+  /* font-size: 12px; */
+  display: inline-flex; 
+  margin-left: 10px;
 }
 
 /* コース */
@@ -210,6 +217,17 @@ h2 {
   margin-top: 5px;
 }
 
+.meta-item {
+  /* 必要に応じて、テキストとアイコンの間隔などを調整できます */
+  margin-right: 8px;
+}
+
+.meta-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+
 .course-price {
   text-align: right;
   font-size: 13px;
@@ -269,7 +287,7 @@ h2 {
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: #dedfdd;
+  /* background: #dedfdd; */
   display: grid;
   place-items: center;
   font-size: 32px;
@@ -547,7 +565,7 @@ h2 {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 402px;
+  max-width: var(--app-width);
   background: white;
   border-top: 1px solid #b8c0b9;
   padding: 10px 12px 22px;
@@ -610,10 +628,10 @@ h2 {
 .screen { display: none; }
 .screen.active { display: block; }
 
-@media (min-width: 600px) {
-  body { padding: 20px 0; }
+@media (min-width: 440px) {
+  /* body { padding: 20px 0; } */
   .app { box-shadow: 0 4px 24px #00000012; }
-  .footer { bottom: 20px; }
+  /* .footer { bottom: 20px; } */
 }
 </style>
 </head>
@@ -647,7 +665,7 @@ h2 {
   <!-- 01 コース選択 -->
   <section class="screen active" id="screen-course">
     <main class="content">
-      <h2>コースの選択 <span class="check">✓</span></h2>
+      <h2>コースの選択 <span class="check"><img src="img/check.png" alt="✔️"></span></h2>
       <p class="description">お好きなコースをお選びください。</p>
 
       <div class="course-list">
@@ -657,7 +675,10 @@ h2 {
           <div class="course-info">
             <div class="course-name">深林アロマコース</div>
             <div class="course-detail">植物由来のアロマで心身ともにリラックス</div>
-            <div class="course-meta">◷ 90分　♧ おすすめのコース</div>
+            <div class="course-meta">
+              <span class="meta-item"><img src="img/clock.png" alt="時計" class="meta-icon">90分</span>
+              <span class="meta-item"><img src="img/ribbon.png" alt="リボン" class="meta-icon">おすすめコース</span>
+            </div>
           </div>
           <div class="course-price">¥9,900<div class="tax">税込</div></div>
         </button>
@@ -668,7 +689,10 @@ h2 {
           <div class="course-info">
             <div class="course-name">森のボディケア</div>
             <div class="course-detail">全身をゆっくりほぐす定番コース</div>
-            <div class="course-meta">◷ 60分　♧ 人気のコース</div>
+            <div class="course-meta">
+              <span class="meta-item"><img src="img/clock.png" alt="時計" class="meta-icon">60分</span>
+              <span class="meta-item"><img src="img/ribbon.png" alt="リボン" class="meta-icon">人気のコース</span>
+            </div>
           </div>
           <div class="course-price">¥6,600<div class="tax">税込</div></div>
         </button>
@@ -679,14 +703,17 @@ h2 {
           <div class="course-info">
             <div class="course-name">足もみ散歩コース</div>
             <div class="course-detail">足元から疲れを整えます</div>
-            <div class="course-meta">◷ 30分　♧ お試し</div>
+            <div class="course-meta">
+              <span class="meta-item"><img src="img/clock.png" alt="時計" class="meta-icon">30分</span>
+              <span class="meta-item"><img src="img/ribbon.png" alt="リボン" class="meta-icon">お試し</span>
+            </div>
           </div>
           <div class="course-price">¥4,400<div class="tax">税込</div></div>
         </button>
       </div>
 
       <div class="note">
-        <span class="note-icon">🐾</span>
+        <span class="note-icon"><img src="img/topics.png" alt="トピックス"></span>
         <span>Square管理画面で追加したサービスが表示されます。サービス内容や表示される画像はSquare管理画面で変更できます。</span>
       </div>
     </main>
@@ -695,22 +722,22 @@ h2 {
   <!-- 02 スタッフ選択 -->
   <section class="screen" id="screen-staff">
     <main class="content">
-      <h2>スタッフの選択 <span class="check">✓</span></h2>
+      <h2>スタッフの選択 <span class="check"><img src="img/check.png" alt="✔️"></span></h2>
       <p class="description">担当するスタッフをお選びください。</p>
 
       <div class="staff-list">
         <button class="staff-card selected" data-staff="ハチワレ">
-          <span class="staff-avatar">🐈</span>
+          <span class="staff-avatar"><img src="img/staff_hachi.png" alt="ハチワレ"></span>
           <span>
-            <div class="staff-caption">得意なセラピスト　経験3年以上</div>
+            <div class="staff-caption">整体セラピスト　勤続3年以上</div>
             <div class="staff-name">ハチワレ</div>
           </span>
         </button>
 
         <button class="staff-card" data-staff="サバトラ">
-          <span class="staff-avatar">🐈</span>
+          <span class="staff-avatar"><img src="img/staff_saba.png" alt="サバトラ"></span>
           <span>
-            <div class="staff-caption">穏やかなセラピスト　経験1年未満</div>
+            <div class="staff-caption">整体セラピスト　勤続１年未満</div>
             <div class="staff-name">サバトラ</div>
           </span>
         </button>
@@ -722,7 +749,7 @@ h2 {
       </div>
 
       <div class="note">
-        <span class="note-icon">🐾</span>
+        <span class="note-icon"><img src="img/topics.png" alt="トピックス"></span>
         <span>選択したサービスに対応できるスタッフが表示されます。対応スタッフはSquare管理画面の「サービス」から割り当てることができます。</span>
       </div>
     </main>
@@ -731,7 +758,7 @@ h2 {
   <!-- 03 日時選択 -->
   <section class="screen" id="screen-date">
     <main class="content">
-      <h2>スタッフの選択 <span class="check">✓</span></h2>
+      <h2>日時の選択 <span class="check"><img src="img/check.png" alt="✔️"></span></h2>
       <p class="description">カレンダーの空き状況を確認して、ご希望の日時をお選びください。</p>
 
       <div class="calendar">
@@ -761,12 +788,12 @@ h2 {
   <!-- 04 お支払い -->
   <section class="screen" id="screen-payment">
     <main class="content">
-      <h2>お支払い方法の選択 <span class="check">✓</span></h2>
+      <h2>お支払い方法の選択 <span class="check"><img src="img/check.png" alt="✔️"></span></h2>
       <p class="description">ご希望のお支払い方法をお選びください。</p>
 
       <div class="payment-list">
         <button class="payment-card selected" data-payment="店舗">
-          <span class="payment-icon">🐈</span>
+          <span class="payment-icon"><img src="img/payment_shop.png" alt="店舗"></span>
           <span class="payment-info">
             <div class="payment-name">お店でお支払い</div>
             <div class="payment-detail">ご来店時にお支払いいただけます。</div>
@@ -775,7 +802,7 @@ h2 {
         </button>
 
         <button class="payment-card" data-payment="オンライン決済">
-          <span class="payment-icon">🐈</span>
+          <span class="payment-icon"><img src="img/payment_online.png" alt="オンライン"></span>
           <span class="payment-info">
             <div class="payment-name">オンラインでお支払い</div>
             <div class="payment-detail">クレジットカードで事前決済。</div>
@@ -789,7 +816,7 @@ h2 {
   <!-- 05 確認 -->
   <section class="screen" id="screen-confirm">
     <main class="content">
-      <h2>ご予約内容の確認 <span class="check">✓</span></h2>
+      <h2>ご予約内容の確認 <span class="check"><img src="img/check.png" alt="✔️"></span></h2>
       <p class="description">内容にお間違いないかご確認ください。</p>
 
       <div class="confirm-card">
@@ -825,8 +852,8 @@ h2 {
   <section class="screen" id="screen-complete">
     <main class="complete">
       <h2>予約が完了しました。</h2>
-      <div class="complete-check">✓</div>
-      <div class="door">🚪</div>
+      <div class="complete-check"><img src="img/check_ok.png" alt="✔️"></div>
+      <div class="door"><img src="img/door.png" alt="ドア"></div>
       <p class="complete-message">ご来店をスタッフ一同お待ちしております。</p>
       <button class="restart" id="restart">最初に戻る</button>
     </main>
@@ -842,9 +869,7 @@ h2 {
       <button class="footer-button" id="back-button" hidden>戻る</button>
       <button class="footer-button primary" id="next-button">スタッフ選択</button>
     </div>
-    <!--
     <div class="home-indicator"></div>
-    -->
   </footer>
 
 </div>
