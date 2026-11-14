@@ -479,6 +479,61 @@ h2 {
   border: 4px solid var(--green);
 }
 
+/* カード決済フォーム */
+
+.card-payment-panel {
+  margin-top: 24px;
+}
+
+.card-payment-panel[hidden] {
+  display: none;
+}
+
+.card-payment-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #463d45;
+  margin: 0 0 20px;
+}
+
+.lock-icon {
+  font-size: 20px;
+}
+
+.card-form {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+#card-container {
+  min-height: 48px;
+}
+
+.card-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  color: #66746e;
+  font-size: 11px;
+}
+
+.info-icon {
+  font-size: 20px;
+  color: #899b9b;
+  flex-shrink: 0;
+}
+
+.card-note {
+  color: #66746e;
+  font-size: 11px;
+  margin: 20px 0 0;
+}
+
 /* 確認 */
 .confirm-card {
   background: white;
@@ -810,6 +865,31 @@ h2 {
           <span class="radio"></span>
         </button>
       </div>
+
+      <!-- カード決済フォーム -->
+      <div class="card-payment-panel" id="card-payment-panel" hidden>
+
+        <h3 class="card-payment-title">
+          カード決済
+          <span class="lock-icon">🔒</span>
+        </h3>
+
+        <div class="card-form">
+          <!-- Square Web Payments SDKの入力フォーム -->
+          <div id="card-container"></div>
+
+          <div class="card-message">
+            <span class="info-icon">ⓘ</span>
+            <span id="card-message">カード番号を入力してください。</span>
+          </div>
+        </div>
+
+        <p class="card-note">
+          ここには実際のカード番号を入力しないでください。
+        </p>
+
+      </div>
+
     </main>
   </section>
 
@@ -968,14 +1048,25 @@ document.querySelectorAll(".staff-card").forEach(button => {
   });
 });
 
+// 支払い方法の選択
 document.querySelectorAll(".payment-card").forEach(button => {
+
   button.addEventListener("click", () => {
+
     document.querySelectorAll(".payment-card").forEach(el =>
       el.classList.remove("selected")
     );
+
     button.classList.add("selected");
+
     state.payment = button.dataset.payment;
+
+    // カード決済フォームの表示切り替え
+    $("card-payment-panel").hidden =
+      state.payment !== "オンライン決済";
+
   });
+
 });
 
 /* カレンダー */
@@ -1128,6 +1219,8 @@ $("restart").addEventListener("click", () => {
   state.payment = "店舗";
   state.year = 2026;
   state.month = 9;
+
+  $("card-payment-panel").hidden = true;
 
   document.querySelectorAll(".course-card").forEach((el, i) =>
     el.classList.toggle("selected", i === 0)
