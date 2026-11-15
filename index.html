@@ -721,6 +721,14 @@ h2 {
   box-shadow: var(--shadow);
 }
 
+/* ボタン無効時 */
+.footer-button:disabled {
+  background: #e5e8e6;
+  color: #aab3ae;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 /*
 .home-indicator {
   width: 120px;
@@ -1066,6 +1074,9 @@ function showScreen(index) {
 
   $("next-button").textContent = nextLabels[index] || "";
 
+  // 次へボタンの有効・無効を切り替え
+  updateNextButtonState();
+
   updateFooter();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1088,6 +1099,17 @@ function updateFooter() {
         ? `${state.month + 1}/${state.date} ${state.time}`
         : money(state.price);
   }
+}
+
+// 次へボタンの有効・無効を切り替え
+function updateNextButtonState() {
+
+  const button = $("next-button");
+
+  button.disabled =
+    state.screen === 2 &&
+    (!state.date || !state.time);
+
 }
 
 function selectCourse(button) {
@@ -1229,6 +1251,7 @@ function renderCalendar() {
         renderSlots();
 
         updateFooter();
+        updateNextButtonState();
 
       });
 
@@ -1315,6 +1338,7 @@ function renderSlots() {
 
         renderSlots();
         updateFooter();
+        updateNextButtonState();
 
       });
 
@@ -1343,6 +1367,7 @@ $("prev-month").addEventListener("click", () => {
   renderCalendar();
   renderSlots();
   updateFooter();
+  updateNextButtonState();
 
 });
 
@@ -1363,6 +1388,7 @@ $("next-month").addEventListener("click", () => {
   renderCalendar();
   renderSlots();
   updateFooter();
+  updateNextButtonState();
 
 });
 
@@ -1383,10 +1409,6 @@ function updateConfirmation() {
 }
 
 $("next-button").addEventListener("click", () => {
-  if (state.screen === 2 && (!state.date || !state.time)) {
-    alert("ご予約日時を選択してください。");
-    return;
-  }
 
   if (state.screen === 4) {
     showScreen(5);
