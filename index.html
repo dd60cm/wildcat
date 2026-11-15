@@ -105,11 +105,18 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* 進捗 */
+
 .progress {
   display: flex;
+  flex-direction: column;
   margin: 25px 24px 0;
-  border-bottom: 2px solid #aebdb7;
-  height: 24px;
+  padding-bottom: 0;
+}
+
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .progress-step {
@@ -117,14 +124,34 @@ button { font: inherit; cursor: pointer; }
   text-align: center;
   color: #9aa6a0;
   font-size: 10px;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
   white-space: nowrap;
+
+  transition: color 0.3s ease;
 }
 
 .progress-step.active {
   color: var(--green);
-  border-bottom: 2px solid var(--green);
   font-weight: bold;
+}
+
+/* 進捗ライン */
+
+.progress-track {
+  width: 100%;
+  height: 3px;
+  background: #aebdb7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 20%;
+  height: 100%;
+  background: var(--green);
+  border-radius: 10px;
+
+  transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* 共通コンテンツ */
@@ -769,11 +796,37 @@ h2 {
   </header>
 
   <nav class="progress" id="progress">
-    <div class="progress-step active">01 コース</div>
-    <div class="progress-step">02 スタッフ</div>
-    <div class="progress-step">03 日時</div>
-    <div class="progress-step">04 お支払い</div>
-    <div class="progress-step">05 確認</div>
+
+    <!-- ステップ表示 -->
+    <div class="progress-steps">
+
+      <div class="progress-step active">
+        01 コース
+      </div>
+
+      <div class="progress-step">
+        02 スタッフ
+      </div>
+
+      <div class="progress-step">
+        03 日時
+      </div>
+
+      <div class="progress-step">
+        04 お支払い
+      </div>
+
+      <div class="progress-step">
+        05 確認
+      </div>
+
+    </div>
+
+    <!-- 進捗ライン -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
   </nav>
 
   <!-- 01 コース選択 -->
@@ -1063,6 +1116,12 @@ function showScreen(index) {
   document.querySelectorAll(".progress-step").forEach((el, i) => {
     el.classList.toggle("active", i === index);
   });
+
+  // 進捗ラインの更新
+  const progress = Math.min(index + 1, 5);
+
+  $("progress-fill").style.width =
+    `${progress * 20}%`;
 
   $("footer").style.display = index === 5 ? "none" : "block";
   $("back-button").hidden = index === 0 || index === 5;
