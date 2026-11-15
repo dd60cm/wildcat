@@ -373,8 +373,18 @@ h2 {
   margin-top: 2px;
 }
 
+/* カレンダーの日付選択 */
+
+.day.selected {
+  background: var(--green);
+  color: white;
+}
+
+.day.selected small {
+  color: white;
+}
+
 .day.disabled { color: #aab6b3; }
-.day.selected { background: white; }
 .day.today { outline: 1px solid var(--green); }
 
 .calendar-legend {
@@ -385,33 +395,74 @@ h2 {
   margin-top: 12px;
 }
 
+/* 時間選択エリア */
+
 .slot-area {
-  margin-top: 20px;
+  margin-top: 24px;
+}
+
+.slot-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 8px;
 }
 
 .slot-title {
   font-size: 11px;
-  margin-bottom: 10px;
+  font-weight: bold;
 }
 
+.reservation-note {
+  font-size: 9px;
+  color: #718078;
+}
+
+/* 初期状態の案内 */
+
+.slot-guide {
+  background: var(--blue);
+  color: #66746e;
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  font-size: 10px;
+}
+
+/* 時間枠 */
+
 .slots {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 
 .slot {
+  width: 100%;
+  min-height: 42px;
   border: 1px solid var(--line);
   background: white;
-  color: var(--green);
-  border-radius: 6px;
-  padding: 9px 15px;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px;
   font-size: 11px;
 }
 
 .slot.selected {
   background: var(--green);
+  border-color: var(--green);
   color: white;
+}
+
+/* 予約不可の時間 */
+
+.slot:disabled {
+  background: #eeeeec;
+  border-color: #c4ccca;
+  color: #9ba6a3;
+  text-decoration: line-through;
+  cursor: not-allowed;
 }
 
 /* 支払い */
@@ -834,9 +885,26 @@ h2 {
       </div>
 
       <div class="slot-area">
-        <div class="slot-title" id="slot-date">日付を選択してください</div>
-        <div class="slots" id="slots"></div>
+
+        <div class="slot-heading">
+          <div class="slot-title" id="slot-date">
+            日付を選択してください
+          </div>
+          <div class="reservation-note">
+            予約枠を確保します
+          </div>
+        </div>
+
+        <!-- 初期状態の案内 -->
+        <div class="slot-guide" id="slot-guide">
+          カレンダーの日付を選ぶと、予約できる時間が表示されます。
+        </div>
+
+        <!-- 空き時間 -->
+        <div class="slots" id="slots" hidden></div>
+
       </div>
+      
     </main>
   </section>
 
@@ -1070,106 +1138,232 @@ document.querySelectorAll(".payment-card").forEach(button => {
 });
 
 /* カレンダー */
+
 function renderCalendar() {
+
   const grid = $("calendar-grid");
+
   grid.innerHTML = "";
 
-  ["日", "月", "火", "水", "木", "金", "土"].forEach(day => {
-    const el = document.createElement("div");
-    el.className = "weekday";
-    el.textContent = day;
-    grid.appendChild(el);
-  });
+  ["日", "月", "火", "水", "木", "金", "土"]
+    .forEach(day => {
 
-  const firstDay = new Date(state.year, state.month, 1).getDay();
-  const lastDate = new Date(state.year, state.month + 1, 0).getDate();
+      const el = document.createElement("div");
+
+      el.className = "weekday";
+      el.textContent = day;
+
+      grid.appendChild(el);
+
+    });
+
+  const firstDay =
+    new Date(state.year, state.month, 1).getDay();
+
+  const lastDate =
+    new Date(state.year, state.month + 1, 0).getDate();
 
   $("month-label").textContent =
     `${state.year}年${state.month + 1}月`;
 
-  for (let i = 0; i < firstDay; i++) {
-    grid.appendChild(document.createElement("div"));
-  }
+  // カレンダーを5週間分表示
+  for (let i = 0; i < 35; i++) {
 
-  for (let day = 1; day <= lastDate; day++) {
+    const date = new Date(
+      state.year,
+      state.month,
+      i - firstDay + 1
+    );
+
+    const day = date.getDate();
+
+    const isCurrentMonth =
+      date.getMonth() === state.month;
+
     const el = document.createElement("button");
+
     el.className = "day";
     el.textContent = day;
 
+    // 前月・翌月の日付
+    if (!isCurrentMonth) {
+
+      el.classList.add("disabled");
+      el.disabled = true;
+
+      grid.appendChild(el);
+
+      continue;
+    }
+
     // サンプル用の空き状況
-    const weekday = new Date(state.year, state.month, day).getDay();
+    const weekday = date.getDay();
+
     const closed = weekday === 0;
+
     const status = closed ? "ー" :
       day % 7 === 0 ? "×" :
       day % 3 === 0 ? "△" : "○";
 
     const small = document.createElement("small");
+
     small.textContent = status;
+
     el.appendChild(small);
 
+    // 定休日・空きなし
     if (closed || status === "×") {
+
       el.classList.add("disabled");
       el.disabled = true;
+
     } else {
+
+      // 日付選択
       el.addEventListener("click", () => {
-        document.querySelectorAll(".day").forEach(d =>
-          d.classList.remove("selected")
-        );
-        el.classList.add("selected");
+
         state.date = day;
         state.time = null;
-        $("slot-date").textContent =
-          `${state.year}年${state.month + 1}月${day}日　時間を選択してください`;
+
+        renderCalendar();
         renderSlots();
+
         updateFooter();
+
       });
+
     }
 
-    if (state.date === day) el.classList.add("selected");
+    // 選択中の日付
+    if (state.date === day) {
+
+      el.classList.add("selected");
+
+    }
+
     grid.appendChild(el);
+
   }
+
 }
 
+/* 時間選択 */
+
 function renderSlots() {
+
   const slots = $("slots");
+  const guide = $("slot-guide");
+
   slots.innerHTML = "";
 
-  ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"]
-    .forEach(time => {
-      const button = document.createElement("button");
-      button.className = "slot";
-      button.textContent = time;
+  // 日付未選択
+  if (!state.date) {
 
-      if (state.time === time) button.classList.add("selected");
+    $("slot-date").textContent =
+      "日付を選択してください";
+
+    guide.hidden = false;
+    slots.hidden = true;
+
+    return;
+
+  }
+
+  // 日付選択済み
+  $("slot-date").textContent =
+    `${state.month + 1}月${state.date}日の空き時間`;
+
+  guide.hidden = true;
+  slots.hidden = false;
+
+  // サンプル用の時間枠
+  const times = [
+    { time: "10:00", available: false },
+    { time: "11:00", available: true },
+    { time: "12:00", available: true },
+    { time: "13:00", available: true },
+    { time: "14:00", available: true },
+    { time: "15:00", available: false },
+    { time: "16:00", available: false },
+    { time: "17:00", available: true }
+  ];
+
+  times.forEach(item => {
+
+    const button = document.createElement("button");
+
+    button.className = "slot";
+    button.textContent = item.time;
+
+    // 予約不可
+    if (!item.available) {
+
+      button.disabled = true;
+
+    } else {
+
+      // 選択中の時間
+      if (state.time === item.time) {
+
+        button.classList.add("selected");
+
+      }
 
       button.addEventListener("click", () => {
-        state.time = time;
+
+        state.time = item.time;
+
         renderSlots();
         updateFooter();
+
       });
 
-      slots.appendChild(button);
-    });
+    }
+
+    slots.appendChild(button);
+
+  });
+
 }
 
 $("prev-month").addEventListener("click", () => {
+
   state.month--;
+
   if (state.month < 0) {
+
     state.month = 11;
     state.year--;
+
   }
+
   state.date = null;
+  state.time = null;
+
   renderCalendar();
+  renderSlots();
+  updateFooter();
+
 });
 
 $("next-month").addEventListener("click", () => {
+
   state.month++;
+
   if (state.month > 11) {
+
     state.month = 0;
     state.year++;
+
   }
+
   state.date = null;
+  state.time = null;
+
   renderCalendar();
+  renderSlots();
+  updateFooter();
+
 });
 
 /* 確認画面 */
