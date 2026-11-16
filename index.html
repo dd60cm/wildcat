@@ -766,6 +766,337 @@ h2 {
 }
 */
 
+/* =========================
+   モーダル共通
+========================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: 52px 12px 20px;
+  background: rgba(172, 172, 176, 0.568);
+
+  overflow-y: auto;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 360px;
+
+  background: var(--paper);
+  border-radius: 24px;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(20px) scale(.98);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+.modal-overlay.open .modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 0 16px;
+  background: white;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-header img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modal-header strong {
+  flex: 1;
+  font-size: 12px;
+}
+
+.modal-close {
+  border: 0;
+  background: none;
+  color: var(--green);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.modal-content {
+  padding: 32px 24px 38px;
+  text-align: center;
+}
+
+.modal-content h3 {
+  font-size: 13px;
+  margin: 0 0 32px;
+  color: #463d45;
+}
+
+/* =========================
+   メニュー
+========================= */
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin: 0 0 52px;
+}
+
+.menu-links button {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: #463d45;
+  padding: 10px 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* =========================
+   共通ボタン
+========================= */
+
+.modal-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 20px;
+  min-width: 72px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.modal-button.primary {
+  background: var(--green);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.modal-button.secondary {
+  background: #dedfdd;
+  color: var(--green);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 38px;
+}
+
+/* =========================
+   プロフィール
+========================= */
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-row label {
+  font-size: 11px;
+  min-width: 30px;
+}
+
+.profile-row input {
+  width: 100%;
+  min-width: 0;
+  height: 27px;
+  border: 1px solid var(--line);
+  background: white;
+  padding: 4px;
+}
+
+.profile-note {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 38px;
+  text-align: left;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* =========================
+   予約一覧
+========================= */
+
+.booking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 42px;
+}
+
+.booking-card {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--blue);
+  padding: 12px;
+  text-align: left;
+  box-shadow: var(--shadow);
+}
+
+.booking-date {
+  color: var(--green);
+  font-size: 10px;
+  margin-bottom: 12px;
+}
+
+.booking-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+}
+
+.booking-info strong {
+  color: #463d45;
+}
+
+.booking-info span {
+  color: var(--green);
+  white-space: nowrap;
+}
+
+/* =========================
+   予約詳細
+========================= */
+
+.booking-detail {
+  background: var(--blue);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+  margin-bottom: 38px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ffffffa0;
+  font-size: 10px;
+}
+
+.detail-row span {
+  color: #718078;
+  flex-shrink: 0;
+}
+
+.detail-row strong {
+  text-align: right;
+  font-weight: normal;
+}
+
+.detail-row:last-of-type {
+  border-bottom: 0;
+}
+
+.detail-row:last-of-type strong {
+  color: var(--green);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.detail-actions button {
+  width: 100%;
+  background: white;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: var(--shadow);
+}
+
+/* =========================
+   トースト通知
+========================= */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 40px;
+  z-index: 300;
+
+  transform: translate(-50%, 15px);
+  opacity: 0;
+  visibility: hidden;
+
+  width: max-content;
+  max-width: calc(100% - 32px);
+
+  background: #514650;
+  color: white;
+  border-radius: 8px;
+  padding: 12px 18px;
+
+  font-size: 11px;
+  text-align: center;
+
+  transition:
+    opacity .3s ease,
+    transform .3s ease,
+    visibility .3s;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .toast {
+    transition: none;
+  }
+}
+
 .screen { display: none; }
 .screen.active { display: block; }
 
@@ -792,7 +1123,16 @@ h2 {
       <span class="brand-mark">♧</span>
       -->
     </div>
-    <button class="menu-button" aria-label="メニュー"><img src="img/menu.png" alt="☰"></button>
+
+    <button
+      class="menu-button"
+      id="menu-button"
+      aria-label="メニュー"
+      type="button"
+    >
+      <img src="img/menu.png" alt="☰">
+    </button>
+
   </header>
 
   <nav class="progress" id="progress">
@@ -1083,6 +1423,211 @@ h2 {
 
 </div>
 
+<!-- メニューモーダル -->
+<div class="modal-overlay" id="menu-modal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <img src="img/user.png" alt="ユーザー画像">
+      <strong>ユーザー名</strong>
+      <button class="modal-close" data-close>×</button>
+    </div>
+
+    <div class="modal-content">
+
+      <h3>メニュー</h3>
+
+      <div class="menu-links">
+        <button id="profile-button">
+          プロフィールの確認・変更
+        </button>
+
+        <button id="bookings-button">
+          予約の確認・変更
+        </button>
+      </div>
+
+      <button class="modal-button secondary" data-close>
+        閉じる
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- プロフィールモーダル -->
+<div class="modal-overlay" id="profile-modal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <img src="img/user.png" alt="ユーザー画像">
+      <strong>ユーザー名</strong>
+      <button class="modal-close" data-close>×</button>
+    </div>
+
+    <div class="modal-content">
+
+      <h3>プロフィール</h3>
+
+      <div class="profile-form">
+
+        <div class="profile-row">
+          <label for="profile-family">姓</label>
+          <input id="profile-family" type="text">
+          <label for="profile-given">名</label>
+          <input id="profile-given" type="text">
+        </div>
+
+        <div class="profile-row">
+          <label for="profile-phone">Tel</label>
+          <input id="profile-phone" type="tel">
+        </div>
+
+        <div class="profile-row">
+          <label for="profile-email">Mail</label>
+          <input id="profile-email" type="email">
+        </div>
+
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-button primary" id="profile-save">
+          保存
+        </button>
+
+        <button class="modal-button secondary" data-close>
+          閉じる
+        </button>
+      </div>
+
+      <div class="profile-note">
+        LINE IDを使用してユーザーを識別している為、
+        プロフィールをご登録されなくてもご予約・お支払いが可能です。
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- 予約一覧モーダル -->
+<div class="modal-overlay" id="bookings-modal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <img src="img/user.png" alt="ユーザー画像">
+      <strong>ユーザー名</strong>
+      <button class="modal-close" data-close>×</button>
+    </div>
+
+    <div class="modal-content">
+
+      <h3>予約の確認・変更</h3>
+
+      <div class="booking-list">
+
+        <button class="booking-card" data-booking="0">
+          <div class="booking-date">○/○（日）10:00</div>
+          <div class="booking-info">
+            <strong>深林アロマコース</strong>
+            <span>90分 / ¥9,900</span>
+          </div>
+        </button>
+
+        <button class="booking-card" data-booking="1">
+          <div class="booking-date">○/○（日）17:00</div>
+          <div class="booking-info">
+            <strong>森のボディケア</strong>
+            <span>60分 / ¥6,600</span>
+          </div>
+        </button>
+
+      </div>
+
+      <button class="modal-button secondary" data-close>
+        閉じる
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- 予約詳細モーダル -->
+<div class="modal-overlay" id="booking-detail-modal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <img src="img/user.png" alt="ユーザー画像">
+      <strong>ユーザー名</strong>
+      <button class="modal-close" data-close>×</button>
+    </div>
+
+    <div class="modal-content">
+
+      <h3>予約の詳細</h3>
+
+      <div class="booking-detail">
+
+        <div class="detail-row">
+          <span>コース</span>
+          <strong id="detail-course">深林アロマコース</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>所要時間</span>
+          <strong id="detail-duration">90分</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>予約日時</span>
+          <strong id="detail-date">2026年10月31日（土）10:00〜</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>担当スタッフ</span>
+          <strong id="detail-staff">ハチワレ</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>支払い方法</span>
+          <strong id="detail-payment">オンライン決済</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>金額</span>
+          <strong id="detail-price">¥9,900</strong>
+        </div>
+
+        <div class="detail-actions">
+          <button id="booking-change">
+            予約の変更
+          </button>
+
+          <button id="booking-cancel">
+            予約のキャンセル
+          </button>
+        </div>
+
+      </div>
+
+      <button class="modal-button secondary" data-close>
+        閉じる
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- トースト通知 -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 const state = {
   screen: 0,
@@ -1103,6 +1648,207 @@ const screens = [
 
 const $ = id => document.getElementById(id);
 const money = value => "¥" + value.toLocaleString("ja-JP");
+
+/* =========================
+   モーダル制御
+========================= */
+
+function openModal(id) {
+
+  const modal = $(id);
+
+  if (!modal) return;
+
+  // 他のモーダルを閉じる
+  document.querySelectorAll(".modal-overlay").forEach(el => {
+    el.classList.remove("open");
+    el.style.display = "none";
+  });
+
+  modal.style.display = "flex";
+
+  // display変更後にアニメーションを開始
+  requestAnimationFrame(() => {
+    modal.classList.add("open");
+  });
+
+}
+
+function closeModal(modal) {
+
+  if (!modal) return;
+
+  modal.classList.remove("open");
+
+  setTimeout(() => {
+
+    if (!modal.classList.contains("open")) {
+      modal.style.display = "none";
+    }
+
+  }, 250);
+
+}
+
+// 閉じるボタン
+document.querySelectorAll("[data-close]").forEach(button => {
+
+  button.addEventListener("click", () => {
+    closeModal(button.closest(".modal-overlay"));
+  });
+
+});
+
+// 背景クリックで閉じる
+document.querySelectorAll(".modal-overlay").forEach(modal => {
+
+  modal.addEventListener("click", event => {
+
+    if (event.target === modal) {
+      closeModal(modal);
+    }
+
+  });
+
+});
+
+// ESCキーで閉じる
+document.addEventListener("keydown", event => {
+
+  if (event.key === "Escape") {
+
+    const opened = document.querySelector(".modal-overlay.open");
+
+    if (opened) closeModal(opened);
+
+  }
+
+});
+
+/* メニュー */
+
+$("menu-button").addEventListener("click", () => {
+  openModal("menu-modal");
+});
+
+// プロフィール
+$("profile-button").addEventListener("click", () => {
+
+  closeModal($("menu-modal"));
+
+  openModal("profile-modal");
+
+});
+
+// 予約一覧
+$("bookings-button").addEventListener("click", () => {
+
+  closeModal($("menu-modal"));
+
+  openModal("bookings-modal");
+
+});
+
+/* トースト通知 */
+
+let toastTimer = null;
+
+function showToast(message) {
+
+  const toast = $("toast");
+
+  // 前回のタイマーを解除
+  clearTimeout(toastTimer);
+
+  // メッセージ設定
+  toast.textContent = message;
+
+  // 表示
+  toast.classList.add("show");
+
+  // 2.5秒後に非表示
+  toastTimer = setTimeout(() => {
+
+    toast.classList.remove("show");
+
+  }, 2500);
+
+}
+
+/* プロフィール保存 */
+
+$("profile-save").addEventListener("click", () => {
+
+  closeModal($("profile-modal"));
+
+});
+
+/* サンプル予約データ */
+
+const sampleBookings = [
+
+  {
+    course: "深林アロマコース",
+    duration: "90分",
+    date: "2026年10月31日（土）10:00〜",
+    staff: "ハチワレ",
+    payment: "オンライン決済",
+    price: 9900
+  },
+
+  {
+    course: "森のボディケア",
+    duration: "60分",
+    date: "2026年10月31日（土）17:00〜",
+    staff: "サバトラ",
+    payment: "お店でお支払い",
+    price: 6600
+  }
+
+];
+
+// 予約カードをクリック
+document.querySelectorAll("[data-booking]").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const index = Number(button.dataset.booking);
+
+    const booking = sampleBookings[index];
+
+    if (!booking) return;
+
+    // 予約詳細に情報を反映
+    $("detail-course").textContent = booking.course;
+    $("detail-duration").textContent = booking.duration;
+    $("detail-date").textContent = booking.date;
+    $("detail-staff").textContent = booking.staff;
+    $("detail-payment").textContent = booking.payment;
+    $("detail-price").textContent = money(booking.price);
+
+    closeModal($("bookings-modal"));
+
+    openModal("booking-detail-modal");
+
+  });
+
+});
+
+/* 予約変更 */
+
+$("booking-change").addEventListener("click", () => {
+
+  showToast("変更する項目を選び直してください。");
+
+});
+
+/* 予約キャンセル */
+
+$("booking-cancel").addEventListener("click", () => {
+
+  showToast("予約がキャンセルされました。");
+
+});
 
 function showScreen(index) {
   state.screen = index;
