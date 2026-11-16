@@ -280,10 +280,13 @@ h2 {
   margin-top: 28px;
   font-size: 10px;
   line-height: 1.7;
+  text-align: left;
 }
 
 .note-icon {
-  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
@@ -898,6 +901,12 @@ h2 {
   color: var(--green);
 }
 
+.modal-button:disabled,
+.detail-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .modal-actions {
   display: flex;
   justify-content: center;
@@ -937,15 +946,7 @@ h2 {
 }
 
 .profile-note {
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: 12px;
-  padding: 14px;
   margin-top: 38px;
-  text-align: left;
-  font-size: 10px;
-  line-height: 1.7;
 }
 
 /* =========================
@@ -1503,9 +1504,10 @@ h2 {
         </button>
       </div>
 
-      <div class="profile-note">
-        LINE IDを使用してユーザーを識別している為、
-        プロフィールをご登録されなくてもご予約・お支払いが可能です。
+      <div class="note profile-note">
+        <span class="note-icon"><img src="img/topics.png" alt="トピックス"></span>
+        <span>LINE IDを使用してユーザーを識別している為、
+        プロフィールをご登録されなくてもご予約・お支払いが可能です。</span>
       </div>
 
     </div>
@@ -1649,6 +1651,9 @@ const screens = [
 const $ = id => document.getElementById(id);
 const money = value => "¥" + value.toLocaleString("ja-JP");
 
+// アニメーション時間
+const MODAL_TRANSITION_DURATION = 250;
+
 /* =========================
    モーダル制御
 ========================= */
@@ -1686,7 +1691,7 @@ function closeModal(modal) {
       modal.style.display = "none";
     }
 
-  }, 250);
+  }, MODAL_TRANSITION_DURATION);
 
 }
 
@@ -1777,11 +1782,23 @@ function showToast(message, callback = null) {
 
 /* プロフィール保存 */
 
-$("profile-save").addEventListener("click", () => {
+const profileSaveButton = $("profile-save");
+
+profileSaveButton.addEventListener("click", () => {
+
+  // 二重クリック防止
+  if (profileSaveButton.disabled) return;
+
+  profileSaveButton.disabled = true;
 
   showToast("保存しました。", () => {
 
     closeModal($("profile-modal"));
+
+    // モーダルが閉じた後に有効化
+    setTimeout(() => {
+      profileSaveButton.disabled = false;
+    }, MODAL_TRANSITION_DURATION);
 
   });
 
@@ -1840,12 +1857,28 @@ document.querySelectorAll("[data-booking]").forEach(button => {
 
 /* 予約変更 */
 
-$("booking-change").addEventListener("click", () => {
+const bookingChangeButton = $("booking-change");
 
+const bookingCancelButton = $("booking-cancel");
+
+bookingChangeButton.addEventListener("click", () => {
+
+  // 二重クリック防止
+  if (bookingChangeButton.disabled) return;
+
+  bookingChangeButton.disabled = true;
+
+  bookingCancelButton.disabled = true;
 
   showToast("変更する項目を選び直してください。", () => {
 
     closeModal($("booking-detail-modal"));
+
+    // モーダルが閉じた後に有効化
+    setTimeout(() => {
+      bookingChangeButton.disabled = false;
+      bookingCancelButton.disabled = false;
+    }, MODAL_TRANSITION_DURATION);
 
   });
 
@@ -1853,12 +1886,24 @@ $("booking-change").addEventListener("click", () => {
 
 /* 予約キャンセル */
 
-$("booking-cancel").addEventListener("click", () => {
+bookingCancelButton.addEventListener("click", () => {
 
+  // 二重クリック防止
+  if (bookingCancelButton.disabled) return;
+
+  bookingChangeButton.disabled = true;
+
+  bookingCancelButton.disabled = true;
 
   showToast("予約がキャンセルされました。", () => {
 
     closeModal($("booking-detail-modal"));
+
+    // モーダルが閉じた後に有効化
+    setTimeout(() => {
+      bookingChangeButton.disabled = false;
+      bookingCancelButton.disabled = false;
+    }, MODAL_TRANSITION_DURATION);
 
   });
 
