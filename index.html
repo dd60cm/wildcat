@@ -1059,11 +1059,11 @@ h2 {
 
 .toast {
   position: fixed;
+  top: 50%;
   left: 50%;
-  bottom: 40px;
   z-index: 300;
 
-  transform: translate(-50%, 15px);
+  transform: translate(-50%, calc(-50% + 15px));
   opacity: 0;
   visibility: hidden;
 
@@ -1072,10 +1072,10 @@ h2 {
 
   background: #514650;
   color: white;
-  border-radius: 8px;
-  padding: 12px 18px;
+  border-radius: 12px;
+  padding: 16px 24px;
 
-  font-size: 11px;
+  font-size: 14px;
   text-align: center;
 
   transition:
@@ -1087,7 +1087,7 @@ h2 {
 .toast.show {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -50%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1753,23 +1753,23 @@ $("bookings-button").addEventListener("click", () => {
 
 let toastTimer = null;
 
-function showToast(message) {
+function showToast(message, callback = null) {
 
   const toast = $("toast");
 
-  // 前回のタイマーを解除
   clearTimeout(toastTimer);
 
-  // メッセージ設定
   toast.textContent = message;
-
-  // 表示
   toast.classList.add("show");
 
-  // 2.5秒後に非表示
   toastTimer = setTimeout(() => {
 
     toast.classList.remove("show");
+
+    // トーストが消えた後に実行
+    if (callback) {
+      setTimeout(callback, 300);
+    }
 
   }, 2500);
 
@@ -1779,7 +1779,11 @@ function showToast(message) {
 
 $("profile-save").addEventListener("click", () => {
 
-  closeModal($("profile-modal"));
+  showToast("保存しました。", () => {
+
+    closeModal($("profile-modal"));
+
+  });
 
 });
 
@@ -1838,7 +1842,12 @@ document.querySelectorAll("[data-booking]").forEach(button => {
 
 $("booking-change").addEventListener("click", () => {
 
-  showToast("変更する項目を選び直してください。");
+
+  showToast("変更する項目を選び直してください。", () => {
+
+    closeModal($("booking-detail-modal"));
+
+  });
 
 });
 
@@ -1846,7 +1855,12 @@ $("booking-change").addEventListener("click", () => {
 
 $("booking-cancel").addEventListener("click", () => {
 
-  showToast("予約がキャンセルされました。");
+
+  showToast("予約がキャンセルされました。", () => {
+
+    closeModal($("booking-detail-modal"));
+
+  });
 
 });
 
