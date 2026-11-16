@@ -657,6 +657,7 @@ h2 {
 .complete h2 {
   color: var(--green);
   font-size: 16px;
+  justify-content: center;
 }
 
 .complete-check {
@@ -853,6 +854,18 @@ h2 {
   font-size: 13px;
   margin: 0 0 32px;
   color: #463d45;
+}
+
+.heading-with-leaf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.leaf-icon {
+  width: 31px;
+  height: auto;
 }
 
 /* =========================
@@ -1131,7 +1144,7 @@ h2 {
       aria-label="メニュー"
       type="button"
     >
-      <img src="img/menu.png" alt="☰">
+      <img src="img/menu.svg" alt="☰">
     </button>
 
   </header>
@@ -1184,8 +1197,8 @@ h2 {
             <div class="course-name">深林アロマコース</div>
             <div class="course-detail">植物由来のアロマで心身ともにリラックス</div>
             <div class="course-meta">
-              <span class="meta-item"><img src="img/clock.png" alt="時計" class="meta-icon">90分</span>
-              <span class="meta-item"><img src="img/ribbon.png" alt="リボン" class="meta-icon">おすすめコース</span>
+              <span class="meta-item"><img src="img/clock.svg" alt="時計" class="meta-icon">90分</span>
+              <span class="meta-item"><img src="img/ribbon.svg" alt="リボン" class="meta-icon">おすすめコース</span>
             </div>
           </div>
           <div class="course-price">¥9,900<div class="tax">税込</div></div>
@@ -1198,8 +1211,8 @@ h2 {
             <div class="course-name">森のボディケア</div>
             <div class="course-detail">全身をゆっくりほぐす定番コース</div>
             <div class="course-meta">
-              <span class="meta-item"><img src="img/clock.png" alt="時計" class="meta-icon">60分</span>
-              <span class="meta-item"><img src="img/ribbon.png" alt="リボン" class="meta-icon">人気のコース</span>
+              <span class="meta-item"><img src="img/clock.svg" alt="時計" class="meta-icon">60分</span>
+              <span class="meta-item"><img src="img/ribbon.svg" alt="リボン" class="meta-icon">人気のコース</span>
             </div>
           </div>
           <div class="course-price">¥6,600<div class="tax">税込</div></div>
@@ -1212,8 +1225,8 @@ h2 {
             <div class="course-name">足もみ散歩コース</div>
             <div class="course-detail">足元から疲れを整えます</div>
             <div class="course-meta">
-              <span class="meta-item"><img src="img/clock.png" alt="時計" class="meta-icon">30分</span>
-              <span class="meta-item"><img src="img/ribbon.png" alt="リボン" class="meta-icon">お試し</span>
+              <span class="meta-item"><img src="img/clock.svg" alt="時計" class="meta-icon">30分</span>
+              <span class="meta-item"><img src="img/ribbon.svg" alt="リボン" class="meta-icon">お試し</span>
             </div>
           </div>
           <div class="course-price">¥4,400<div class="tax">税込</div></div>
@@ -1341,7 +1354,7 @@ h2 {
 
         <h3 class="card-payment-title">
           カード決済
-          <span class="lock-icon">🔒</span>
+          <span class="lock-icon"><img src="img/lock.svg" alt="🔒"></span>
         </h3>
 
         <div class="card-form">
@@ -1437,7 +1450,11 @@ h2 {
 
     <div class="modal-content">
 
-      <h3>メニュー</h3>
+      <h3 class="heading-with-leaf">
+        <img src="img/heading-leaf-left.svg" alt="装飾" class="leaf-icon">
+        メニュー
+        <img src="img/heading-leaf-right.svg" alt="装飾" class="leaf-icon">
+      </h3>
 
       <div class="menu-links">
         <button id="profile-button">
@@ -1471,7 +1488,11 @@ h2 {
 
     <div class="modal-content">
 
-      <h3>プロフィール</h3>
+      <h3 class="heading-with-leaf">
+        <img src="img/heading-leaf-left.svg" alt="装飾" class="leaf-icon">
+        プロフィール
+        <img src="img/heading-leaf-right.svg" alt="装飾" class="leaf-icon">
+      </h3>
 
       <div class="profile-form">
 
@@ -1528,7 +1549,11 @@ h2 {
 
     <div class="modal-content">
 
-      <h3>予約の確認・変更</h3>
+      <h3 class="heading-with-leaf">
+        <img src="img/heading-leaf-left.svg" alt="装飾" class="leaf-icon">
+        予約の確認・変更
+        <img src="img/heading-leaf-right.svg" alt="装飾" class="leaf-icon">
+      </h3>
 
       <div class="booking-list">
 
@@ -1572,7 +1597,11 @@ h2 {
 
     <div class="modal-content">
 
-      <h3>予約の詳細</h3>
+      <h3 class="heading-with-leaf">
+        <img src="img/heading-leaf-left.svg" alt="装飾" class="leaf-icon">
+        予約の詳細
+        <img src="img/heading-leaf-right.svg" alt="装飾" class="leaf-icon">
+      </h3>
 
       <div class="booking-detail">
 
