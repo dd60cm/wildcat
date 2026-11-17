@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+/* =========================
+   プログレスバー
+========================= */
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 24px 0;
+  padding-bottom: 0;
+}
+
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-step {
+  flex: 1;
+  text-align: center;
+  color: #9aa6a0;
+  font-size: 10px;
+  padding-bottom: 12px;
+  white-space: nowrap;
+
+  transition: color 0.3s ease;
+}
+
+.progress-step.active {
+  color: var(--green);
+  font-weight: bold;
+}
+
+/* 進捗ライン */
+
+.progress-track {
+  width: 100%;
+  height: 3px;
+  background: #aebdb7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 20%;
+  height: 100%;
+  background: var(--green);
+  border-radius: 10px;
+
+  transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+/* =========================
+   共通UI
+========================= */
+
+.content {
+  padding: 20px 24px 30px;
+}
+
+button { font: inherit; cursor: pointer; }
+
+h2 {
+  color: var(--green);
+  font-size: 15px;
+  margin: 0 0 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.description {
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 0 0 26px;
+}
+
+.check {
+  display: inline-flex; 
+  margin-left: 10px;
+}
+
+/* 説明ボックス */
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border-radius: 12px;
+  padding: 13px;
+  margin-top: 28px;
+  font-size: 10px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.note-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

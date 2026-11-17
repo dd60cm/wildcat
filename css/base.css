@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+:root {
+  --app-width: 440px;
+  --green: #345b45;
+  --green-light: #527b65;
+  --blue: #c7dfe1;
+  --blue-dark: #b6d3d6;
+  --paper: #faf8f2;
+  --white: #fff;
+  --line: #aebcba;
+  --text: #35443e;
+  --muted: #89938e;
+  --shadow: 0 2px 4px #00000018;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN",
+    "Noto Serif JP", serif;
+  font-size: 14px;
+}
+
+.app {
+  width: 100%;
+  max-width: var(--app-width);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--paper);
+  position: relative;
+  padding-top: 93px;
+  padding-bottom: 100px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .toast {
+    transition: none;
+  }
+}

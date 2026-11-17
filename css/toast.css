@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+/* =========================
+   トースト通知
+========================= */
+
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 300;
+
+  transform: translate(-50%, calc(-50% + 15px));
+  opacity: 0;
+  visibility: hidden;
+
+  width: max-content;
+  max-width: calc(100% - 32px);
+
+  background: #514650;
+  color: white;
+  border-radius: 12px;
+  padding: 16px 24px;
+
+  font-size: 14px;
+  text-align: center;
+
+  transition:
+    opacity .3s ease,
+    transform .3s ease,
+    visibility .3s;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+}
