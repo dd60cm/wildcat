@@ -53,7 +53,7 @@
 
 .payment-detail {
   font-size: 10px;
-  color: #66746e;
+  color: var(--text-gray);
 }
 
 .radio {

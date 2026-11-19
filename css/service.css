@@ -53,11 +53,19 @@
 .course-meta {
   color: var(--green);
   font-size: 10px;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 .meta-item {
-  margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  margin-right: 6px;
+  gap: 3px;
+}
+
+.meta-icon {
+  vertical-align: middle;
 }
 
 .course-price {
